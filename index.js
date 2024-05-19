@@ -33,7 +33,7 @@ const userShema = new mongoose.Schema({
     required:true
   },
   todolist:{
-    type:Object
+    type:Array
   }
 })
 const modeling = new mongoose.model("user",userShema)
