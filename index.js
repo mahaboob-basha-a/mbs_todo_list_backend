@@ -26,7 +26,8 @@ const userShema = new mongoose.Schema({
   },
   username:{
     type:String,
-    required:true
+    required:true,
+    trim:true
   },
   password:{
     type:String,
