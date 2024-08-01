@@ -4,10 +4,10 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const jwtToken = require('jsonwebtoken')
 require('dotenv').config()
-
+// middlewares
 app.use(cors()) 
 app.use(express.json())
-
+// db express server connection
 const connectServer = async () =>{
   try{
         await mongoose.connect(process.env.mongodbUrl) 
@@ -19,6 +19,7 @@ const connectServer = async () =>{
  } 
 
 connectServer()
+// todo schema
 const userShema = new mongoose.Schema({
   name:{
     type:String,
@@ -38,7 +39,7 @@ const userShema = new mongoose.Schema({
   }
 })
 const modeling = new mongoose.model("user",userShema)
-
+// jwt middleware
 const middleware = async (req,res,next)=>{
   try{
     const {token} = req.headers
@@ -72,7 +73,6 @@ app.post('/login',async (req,res)=>{
 })
 
 // Register api
-
 app.post('/register', async (req,res)=>{
   try{
     const {name,username,password} = req.body
@@ -96,7 +96,7 @@ app.post('/register', async (req,res)=>{
   }
 })
 
-// Home api
+// Home get api
 app.get('/',middleware,async (req,res)=>{
   try{
     const data = await modeling.find({"username":req.body})
@@ -108,7 +108,6 @@ app.get('/',middleware,async (req,res)=>{
 })
 
 //Update todolist
-
 app.put('/update/:username',async(req,res)=>{
   try{
     const username = req.params.username
